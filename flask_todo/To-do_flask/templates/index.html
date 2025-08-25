@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Character encoding -->
+    <title>My To-Do List</title> <!-- Page title -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive design for mobile -->
+    <!-- Link to external CSS file (Flask static folder) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class='todo-container'> <!-- Main card container -->
+    <main>
+        <h1>My To-Do List</h1> <!-- Page heading -->
+
+        <!-- Button to toggle visibility of the Add Task form -->
+        <button class="blue-button" id="toggle-add-task">Add Task</button>
+
+        <!-- Add Task Form -->
+        <form id="add-task-form" action="{{ url_for('add_task') }}" method="POST">
+            <div>
+                <label for="task">Task:</label> <!-- Label linked to task input -->
+                <input id="task" type="text" name="task" placeholder="clean room" required> <!-- Task input -->
+            </div>
+
+            <!-- Status dropdown -->
+            <div id="status-div">
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="Not Started">Not Started</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Done">Done</option>
+                </select>
+            </div>
+
+            <!-- Priority dropdown -->
+            <div id="priority-div">
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority">
+                    <option value="High">High</option>
+                    <option value="Medium" selected>Medium</option> <!-- Default selection -->
+                    <option value="Low">Low</option>
+                </select>
+            </div>
+
+            <!-- Submit button for adding a new task -->
+            <button class="blue-button" type="submit">Add Task</button>
+        </form>
+
+        <!-- Conditional rendering: show tasks if they exist -->
+        {% if todo %}
+            <ul id="task-list"> <!-- Task list container -->
+                {% for task in todo %} <!-- Loop through each task -->
+                    <li data-id="{{ task.id }}" class="task-item"> <!-- Individual task item -->
+                        <div class="task-text"> <!-- Display task info -->
+                            <strong>{{ task.task }}:</strong>
+                            {{ task.status }}
+                            <strong>- Priority:</strong>
+                            <span class="{{ task.priority|lower|trim }}"> <!-- Dynamic class for color -->
+                                {{ task.priority|capitalize }} <!-- Display priority text -->
+                            </span>
+                        </div>
+
+                        <div class="task-form"> <!-- Hidden edit/delete form for each task -->
+                            <!-- Edit Task Form (inline) -->
+                            <form action="{{ url_for('edit_task', task_id=task.id) }}" method="POST" class="inline-form">
+                                <input type="text" name="task" value="{{ task.task }}" required> <!-- Editable task text -->
+                                <select name="status"> <!-- Editable status -->
+                                    <option value="Not Started" {% if task.status == "Not Started" %}selected{% endif %}>Not Started</option>
+                                    <option value="In Progress" {% if task.status == "In Progress" %}selected{% endif %}>In Progress</option>
+                                    <option value="Done" {% if task.status == "Done" %}selected{% endif %}>Done</option>
+                                </select>
+                                <select name="priority"> <!-- Editable priority -->
+                                    <option value="High" {% if task.priority == "High" %}selected{% endif %}>High</option>
+                                    <option value="Medium" {% if task.priority == "Medium" %}selected{% endif %}>Medium</option>
+                                    <option value="Low" {% if task.priority == "Low" %}selected{% endif %}>Low</option>
+                                </select>
+                                <button class="blue-button" type="submit">Save</button> <!-- Save changes -->
+                            </form>
+
+                            <!-- Delete Task Form (inline) -->
+                            <form action="{{ url_for('delete_task', task_id=task.id) }}" method="POST" class="inline-form">
+                                <button class="blue-button" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <!-- Message shown if there are no tasks -->
+            <p>No tasks yet. Add one above!</p>
+        {% endif %}
+    </main>
+</div>
+
+<!-- Link to external JS file (Flask static folder) for toggling forms -->
+<script src="{{ url_for('static', filename='toggle.js') }}"></script>
+</body>
+</html>

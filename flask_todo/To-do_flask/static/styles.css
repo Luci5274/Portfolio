@@ -1,0 +1,150 @@
+/* Reset default styles for all elements */
+* {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    box-sizing: border-box; /* Include padding/border in element's total width/height */
+}
+
+/* Priority-based text colors */
+.high { color: red; }      /* High priority tasks appear red */
+.medium { color: orange; } /* Medium priority tasks appear orange */
+.low { color: green; }     /* Low priority tasks appear green */
+
+/* General page styling */
+body {
+    font-family: Arial, Helvetica, sans-serif; /* Set font */
+    background-color: #f9f9f9; /* Light grey background */
+    color: #333; /* Default text color */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align content to top */
+    min-height: 100vh; /* Make sure body is at least full viewport height */
+    padding: 40px; /* Space around content */
+}
+
+/* header 1 */
+h1 {
+    text-align:center;
+}
+
+
+/* Card wrapper for the to-do list */
+.todo-container {
+    background-color: #fff; /* White background for card */
+    width: 100%; /* Full width up to max-width */
+    max-width: 800px; /* Limit max width */
+    padding: 20px; /* Inner spacing */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08); /* Soft shadow for elevation */
+}
+
+/* Add Task Form */
+#add-task-form {
+    display: none; /* Hidden initially */
+    gap: 10px; /* Space between form elements */
+    margin-bottom: 20px; /* Space below form */
+    flex-wrap: wrap; /* Allow inputs to wrap to next line if needed */
+}
+
+/* Inputs inside add-task form */
+#add-task-form input {
+    flex: 1; /* Fill available horizontal space */
+    margin: 4px; /* Small spacing around each input */
+    padding: 10px; /* Inner padding for inputs */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 6px; /* Rounded input corners */
+    font-size: 14px; /* Text size inside input */
+}
+
+/* Show add-task form when toggled with JS */
+#add-task-form.visible {
+    display: flex; /* Switch from hidden to flex */
+}
+
+/* Per-task edit/delete forms */
+.task-form {
+    display: none; /* Hidden by default */
+    flex-direction: row; /* Arrange inputs/buttons horizontally */
+    gap: 10px; /* Space between elements */
+    margin-top: 10px; /* Space above the form */
+    align-items: center; /* Align items vertically center */
+}
+
+/* Show per-task form when toggled with JS */
+.task-form.visible {
+    display: flex; /* Switch from hidden to flex */
+}
+
+/* Inline forms inside task-form (nested small forms) */
+.inline-form {
+    display: flex; /* Arrange inline */
+    align-items: center; /* Align items vertically center */
+    gap: 6px; /* Small spacing between inputs/buttons */
+}
+
+/* Inputs and selects inside inline forms */
+.inline-form input,
+.inline-form select {
+    padding: 6px; /* Inner padding */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 14px; /* Text size */
+}
+
+/* Reusable button style */
+.blue-button {
+    margin: 2px; /* Small spacing around button */
+    padding: 8px 12px; /* Inner spacing */
+    border: none; /* Remove default border */
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border-radius: 6px; /* Rounded corners */
+    cursor: pointer; /* Cursor changes to pointer on hover */
+    transition: background-color 0.2s ease; /* Smooth hover transition */
+}
+
+/* Hover effect for blue buttons */
+.blue-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Task list styling */
+#task-list {
+    list-style: disc inside; /* Bulleted list with bullets inside padding */
+    padding-left: 1rem; /* Space before text */
+    margin: 4px 0; /* Small vertical spacing */
+}
+
+/* Individual task item container */
+.task-item {
+    display: flex; /* Use flex layout */
+    justify-content: space-between; /* Space between text and buttons */
+    align-items: center; /* Vertically center content */
+    padding: 12px; /* Inner spacing */
+    border-bottom: 1px solid #eee; /* Divider between tasks */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect for task text */
+.task-text:hover {
+    text-decoration: underline; /* Underline text on hover */
+}
+
+/* General task text */
+.task-text {
+    cursor: pointer; /* Pointer cursor to indicate clickability */
+}
+
+/* Incorrect selector likely meant to target task-form visible state; currently does nothing */
+li div .task-form.visible:hover {
+    text-decoration: none; /* No underline on hover */
+}
+
+/* Status and priority div spacing */
+#status-div {
+    margin-top: 10px; /* Space above the div */
+}
+
+#priority-div {
+    margin-top: 10px; /* Space above the div */
+}
